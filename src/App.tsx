@@ -141,72 +141,47 @@ export default function TripPlanner() {
 
   // Navigation component
   const Navigation = () => (
-    <div style={{
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      padding: '20px',
-      position: 'sticky',
-      top: 0,
-      zIndex: 1000,
-      boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-    }}>
-      <div style={{
-        maxWidth: '1400px',
-        margin: '0 auto',
-        display: 'flex',
-        gap: '15px',
-        justifyContent: 'center'
-      }}>
-        <button
-          onClick={() => {
-            setCurrentView('calendar');
-            setSelectedDate(null);
-          }}
-          style={{
-            background: currentView === 'calendar' ? 'white' : 'rgba(255,255,255,0.2)',
-            color: currentView === 'calendar' ? '#667eea' : 'white',
-            border: 'none',
-            padding: '12px 30px',
-            borderRadius: '25px',
-            fontSize: '1em',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            transition: 'all 0.3s',
-            boxShadow: currentView === 'calendar' ? '0 4px 15px rgba(0,0,0,0.2)' : 'none'
-          }}
-        >
-          📅 Calendar View
-        </button>
-        <button
-          onClick={() => setCurrentView('map')}
-          style={{
-            background: currentView === 'map' ? 'white' : 'rgba(255,255,255,0.2)',
-            color: currentView === 'map' ? '#667eea' : 'white',
-            border: 'none',
-            padding: '12px 30px',
-            borderRadius: '25px',
-            fontSize: '1em',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            transition: 'all 0.3s',
-            boxShadow: currentView === 'map' ? '0 4px 15px rgba(0,0,0,0.2)' : 'none'
-          }}
-        >
-          🗺️ Map View
-        </button>
+    <div className="sticky top-0 z-50 bg-gradient-to-br from-primary-500 to-purple-600 shadow-md">
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="flex gap-3 justify-center">
+          <button
+            onClick={() => {
+              setCurrentView('calendar');
+              setSelectedDate(null);
+            }}
+            className={`
+              px-6 py-3 rounded-full font-bold transition-all
+              ${currentView === 'calendar' 
+                ? 'bg-white text-primary-500 shadow-lg' 
+                : 'bg-white/20 text-white hover:bg-white/30'
+              }
+            `}
+          >
+            <span className="hidden sm:inline">📅 Calendar View</span>
+            <span className="sm:hidden">📅 Calendar</span>
+          </button>
+          <button
+            onClick={() => setCurrentView('map')}
+            className={`
+              px-6 py-3 rounded-full font-bold transition-all
+              ${currentView === 'map' 
+                ? 'bg-white text-primary-500 shadow-lg' 
+                : 'bg-white/20 text-white hover:bg-white/30'
+              }
+            `}
+          >
+            <span className="hidden sm:inline">🗺️ Map View</span>
+            <span className="sm:hidden">🗺️ Map</span>
+          </button>
+        </div>
       </div>
     </div>
   );
 
   if (loading) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-      }}>
-        <div style={{ color: 'white', fontSize: '1.5em' }}>Loading EepLog... 😴</div>
+      <div className="flex justify-center items-center h-screen bg-gradient-to-br from-primary-500 to-purple-600">
+        <div className="text-white text-2xl">Loading EepLog... 😴</div>
       </div>
     );
   }
@@ -215,33 +190,13 @@ export default function TripPlanner() {
     return (
       <>
         <Navigation />
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          height: 'calc(100vh - 100px)',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          padding: '20px'
-        }}>
-          <div style={{ 
-            background: 'white', 
-            padding: '30px', 
-            borderRadius: '15px',
-            maxWidth: '500px'
-          }}>
-            <h2 style={{ color: '#f5576c' }}>Error loading data</h2>
-            <p>{error}</p>
+        <div className="flex justify-center items-center min-h-[calc(100vh-100px)] bg-gradient-to-br from-primary-500 to-purple-600 p-4">
+          <div className="bg-white p-8 rounded-2xl max-w-md shadow-2xl">
+            <h2 className="text-secondary-500 text-2xl font-bold mb-4">Error loading data</h2>
+            <p className="text-gray-700 mb-6">{error}</p>
             <button 
               onClick={loadData}
-              style={{
-                background: '#667eea',
-                color: 'white',
-                border: 'none',
-                padding: '10px 20px',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontSize: '1em'
-              }}
+              className="bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors font-medium"
             >
               Retry
             </button>
@@ -390,76 +345,27 @@ export default function TripPlanner() {
   return (
     <>
       <Navigation />
-      <div style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        minHeight: 'calc(100vh - 80px)',
-        padding: '40px 20px'
-      }}>
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          background: 'white',
-          borderRadius: '20px',
-          padding: '30px',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
-        }}>
-        <h1 style={{ 
-          textAlign: 'center', 
-          color: '#667eea', 
-          marginBottom: '30px',
-          fontSize: '2.2em'
-        }}>
-          🚗 November 2025 Road Trip EepLog 🗺️
-        </h1>
+      <div className="min-h-[calc(100vh-80px)] bg-gradient-to-br from-primary-500 to-purple-600 p-4 md:p-10">
+        <div className="max-w-7xl mx-auto bg-white rounded-3xl p-4 md:p-8 shadow-2xl">
+          <h1 className="text-center text-primary-500 text-2xl md:text-4xl font-bold mb-6 md:mb-8">
+            🚗 November 2025 Road Trip EepLog 🗺️
+          </h1>
 
-        {/* Calendar header */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '80px repeat(7, 1fr)',
-          gap: '10px',
-          marginBottom: '10px',
-          padding: '10px 0',
-          background: '#667eea',
-          borderRadius: '8px'
-        }}>
-          <div style={{ 
-            color: 'white', 
-            fontWeight: 'bold', 
-            textAlign: 'center',
-            padding: '5px'
-          }}>WEEK</div>
-          {['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'].map(day => (
-            <div key={day} style={{ 
-              color: 'white', 
-              fontWeight: 'bold', 
-              textAlign: 'center',
-              fontSize: '0.85em',
-              padding: '5px'
-            }}>
-              {day}
-            </div>
-          ))}
-        </div>
+          {/* Calendar header - hidden on mobile, shown on tablet+ */}
+          <div className="hidden md:grid grid-cols-[80px_repeat(7,1fr)] gap-2 mb-2 p-3 bg-primary-500 rounded-lg">
+            <div className="text-white font-bold text-center text-sm">WEEK</div>
+            {['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'].map(day => (
+              <div key={day} className="text-white font-bold text-center text-xs lg:text-sm">
+                {day}
+              </div>
+            ))}
+          </div>
 
         {/* Calendar weeks */}
         {weeks.map((week, weekIndex) => (
-          <div key={weekIndex} style={{
-            display: 'grid',
-            gridTemplateColumns: '80px repeat(7, 1fr)',
-            gap: '10px',
-            marginBottom: '10px'
-          }}>
-            {/* Week label */}
-            <div style={{
-              background: '#f0f0f0',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 'bold',
-              color: '#666',
-              padding: '10px'
-            }}>
+          <div key={weekIndex} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[80px_repeat(7,1fr)] gap-2 md:gap-3 mb-3">
+            {/* Week label - hidden on mobile */}
+            <div className="hidden md:flex bg-gray-100 rounded-lg items-center justify-center font-bold text-gray-600 p-2">
               Week<br/>{weekIndex + 1}
             </div>
 
@@ -475,62 +381,32 @@ export default function TripPlanner() {
                 <div
                   key={day.toISOString()}
                   onClick={() => inRange ? setSelectedDate(day) : null}
-                  style={{
-                    background: accom ? 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' : inRange ? '#f9f9f9' : 'white',
-                    color: accom ? 'white' : '#333',
-                    padding: '12px',
-                    borderRadius: '8px',
-                    cursor: inRange ? 'pointer' : 'default',
-                    border: inRange ? '2px solid #e0e0e0' : '1px solid #f0f0f0',
-                    minHeight: '120px',
-                    transition: 'transform 0.2s, box-shadow 0.2s',
-                    boxShadow: inRange ? '0 2px 4px rgba(0,0,0,0.1)' : 'none',
-                    opacity: inRange ? 1 : 0.4
-                  }}
-                  onMouseEnter={(e) => {
-                    if (inRange) {
-                      e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (inRange) {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-                    }
-                  }}
+                  className={`
+                    p-3 rounded-lg transition-all min-h-[120px]
+                    ${accom ? 'bg-gradient-to-br from-pink-400 to-secondary-500 text-white' : inRange ? 'bg-gray-50' : 'bg-white'}
+                    ${inRange ? 'cursor-pointer border-2 border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-1' : 'border border-gray-100 opacity-40'}
+                    ${accom ? 'text-white' : 'text-gray-800'}
+                  `}
                 >
-                  <div style={{ 
-                    fontWeight: '700', 
-                    fontSize: '1.1em',
-                    marginBottom: '8px',
-                    color: accom ? 'white' : '#667eea'
-                  }}>
+                  <div className={`font-bold text-lg mb-2 ${accom ? 'text-white' : 'text-primary-500'}`}>
+                    <span className="md:hidden">{getDayOfWeek(day)} </span>
                     {formatDate(day)}
                   </div>
 
                   {isCheckin && (
-                    <div style={{
-                      background: accom ? 'rgba(255,255,255,0.3)' : '#e8f5e9',
-                      padding: '4px 6px',
-                      borderRadius: '4px',
-                      fontSize: '0.75em',
-                      marginBottom: '4px',
-                      borderLeft: accom ? '2px solid white' : '2px solid #66bb6a'
-                    }}>
+                    <div className={`
+                      px-2 py-1 rounded text-xs mb-1 border-l-2
+                      ${accom ? 'bg-white/30 border-white' : 'bg-green-50 border-green-500'}
+                    `}>
                       🔑 Check into {accom?.city}
                     </div>
                   )}
 
                   {isCheckout && !isCheckin && (
-                    <div style={{
-                      background: accom ? 'rgba(255,255,255,0.3)' : '#fff0f0',
-                      padding: '4px 6px',
-                      borderRadius: '4px',
-                      fontSize: '0.75em',
-                      marginBottom: '4px',
-                      borderLeft: accom ? '2px solid white' : '2px solid #f5576c'
-                    }}>
+                    <div className={`
+                      px-2 py-1 rounded text-xs mb-1 border-l-2
+                      ${accom ? 'bg-white/30 border-white' : 'bg-red-50 border-red-500'}
+                    `}>
                       🚪 Check out
                     </div>
                   )}
@@ -538,25 +414,17 @@ export default function TripPlanner() {
                   {dayActivities.map(act => (
                     <div
                       key={act.id}
-                      style={{
-                        background: accom ? 'rgba(255,255,255,0.3)' : '#fff8e1',
-                        padding: '4px 6px',
-                        borderRadius: '4px',
-                        fontSize: '0.75em',
-                        marginBottom: '4px',
-                        borderLeft: accom ? '2px solid white' : '2px solid #ffc107'
-                      }}
+                      className={`
+                        px-2 py-1 rounded text-xs mb-1 border-l-2
+                        ${accom ? 'bg-white/30 border-white' : 'bg-yellow-50 border-yellow-500'}
+                      `}
                     >
                       🚗 {act.title}
                     </div>
                   ))}
 
                   {accom && (
-                    <div style={{ 
-                      fontSize: '0.8em',
-                      marginTop: '8px',
-                      fontWeight: 'bold'
-                    }}>
+                    <div className="text-sm mt-2 font-bold">
                       😴 Sleep: {accom.city} ({accom.beds} beds)
                     </div>
                   )}

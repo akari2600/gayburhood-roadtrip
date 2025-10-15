@@ -1,6 +1,4 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip } from 'react-leaflet';
-import { Icon } from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import { routes, tripStats } from './routeData';
 
 interface Accommodation {
@@ -36,14 +34,13 @@ const cityCoordinates: { [key: string]: [number, number] } = {
   'Waco': [31.5493, -97.1467],
 };
 
-export default function MapView({ accommodations, activities }: MapViewProps) {
+export default function MapView({ accommodations }: MapViewProps) {
   // Get unique cities in order of check-in dates
   const routePoints = accommodations
     .sort((a, b) => a.check_in.localeCompare(b.check_in))
     .map(accom => ({
-      city: accom.city,
-      coordinates: cityCoordinates[accom.city] || [0, 0],
-      ...accom
+      ...accom,
+      coordinates: cityCoordinates[accom.city] || [0, 0]
     }))
     .filter(point => point.coordinates[0] !== 0);
 
